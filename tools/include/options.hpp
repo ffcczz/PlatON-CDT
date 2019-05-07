@@ -163,7 +163,9 @@ static Options CreateOptions() {
   opts.ld_opts.emplace_back("-L" + platon::cdt::utils::where() + "/../lib");
   opts.compiler_opts.emplace_back("-c");
 
+  //应该是在此处之前就将原始文件进行预处理，然后放到了临时文件夹中
   for (const auto& f : input_filename_opt) {
+    std::cout << "temp f path      "  << f  << std::endl;
 #ifdef ONLY_LD
     opts.ld_opts.push_back(f);
 #endif

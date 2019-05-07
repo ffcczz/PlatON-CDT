@@ -203,6 +203,7 @@ void createContractFile(fs::path &randomDir, const string &srcPath,
 
   string line;
   bool skip = false;
+  //在此处将srcStream中的
   while (getline(srcStream, line)) {
     if (line.find("platon autogen end") != string::npos) {
       skip = false;
@@ -227,6 +228,7 @@ void createContractFile(fs::path &randomDir, const string &srcPath,
   llvm::SmallString<64> res;
   llvm::sys::path::system_temp_directory(true, res);
   std::string dst(std::string(res.c_str()) + "/" + abidef_filename);
+  std::cout <<  R"(std::string(res.c_str()) + "/" + abidef_filename      )"  << std::string(res.c_str()) + "/" + abidef_filename  << std::endl;
   fs::copy_file(tmpFile, dst, fs::copy_option::overwrite_if_exists);
 }
 void prepareFile(const string &filename) {

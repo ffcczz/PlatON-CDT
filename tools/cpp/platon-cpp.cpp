@@ -69,12 +69,17 @@ int main(int argc, const char** argv) {
 
       new_opts.insert(new_opts.begin(), "-o " + output);
       outputs.push_back(output);
+      std::cout << "clang  new_opts start  \n";
+      for(auto newOPt = new_opts.begin(); newOPt != new_opts.end(); newOPt++){
+          std::cout << *newOPt  <<  "     ";
+      }
+      std::cout << std::endl;
 
       if (!platon::cdt::runtime::exec_subprogram(CLANG, new_opts)) {
         llvm::sys::fs::remove(tmp_file);
         return -1;
       }
-      llvm::sys::fs::remove(tmp_file);
+      //llvm::sys::fs::remove(tmp_file);
     }
   } catch (std::runtime_error& err) {
     llvm::errs() << err.what() << '\n';
@@ -97,6 +102,16 @@ int main(int argc, const char** argv) {
       new_opts.emplace_back(" --export _Z4mainiPPc ");
     }
 
+    std::cout <<  "  exports_filename  " <<  opts.exports_filename  << std::endl;
+    std::cout <<  "  abi_filename  " <<  opts.abi_filename  << std::endl;
+    std::cout <<  "  abidef_output  " <<  opts.abidef_output  << std::endl;
+    std::cout <<  "  output_filename  " <<  opts.output_filename  << std::endl;
+    std::cout << "exports_filename   "  << opts.exports_filename << std::endl;
+    std::cout << "ld  new_opts start  \n";
+    for(auto newOPt = new_opts.begin(); newOPt != new_opts.end(); newOPt++){
+        std::cout << *newOPt  <<  "     ";
+    }
+    std::cout << std::endl;
     if (!platon::cdt::runtime::exec_subprogram("platon-ld", new_opts)) {
       for (const auto& output : outputs) {
         llvm::sys::fs::remove(output);
