@@ -18,7 +18,7 @@
   ARG_COUNT_(_, ##__VA_ARGS__, ARG_COUNT_P2_)
 
 #define M_CAT(a, b) M_CAT_(a, b)
-#define M_CAT_(a, b) a##b
+#define M_CAT_(a, b) a##b  //  ## 表示将两个参数链接在一起
 
 #define VA_F(...) \
   M_CAT(func, ARG_COUNT(__VA_ARGS__)) (__VA_ARGS__)

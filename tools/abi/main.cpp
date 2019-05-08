@@ -235,12 +235,12 @@ void prepareFile(const string &filename) {
   fstream fs(filename);
   string line;
 
-  auto cur = fs.tellg();
+  auto cur = fs.tellg();   // tellg()  用于输入流，返回流中‘get’指针当前的位置
 
   //    auto begin = fstream::pos_type(-1);
   //    auto end = fstream::pos_type(-1);
 
-  vector<tuple<fstream::pos_type, string>> replaceText;
+  vector<tuple<fstream::pos_type, string>> replaceText;  // 在C++中的tuple和python语言中是类似的，是一个强大的允许存放多个不同类型数据的容器，是对pair的泛化。
   string tailText;
   bool skip = false;
   bool append = false;
@@ -275,7 +275,7 @@ void prepareFile(const string &filename) {
     throw Exception() << ErrStr("open file failed");
   }
   string rt = "//";
-  writeAnno.seekp(get<0>(replaceText[0]));
+  writeAnno.seekp(get<0>(replaceText[0]));   // seekp：设置输出文件流的文件流指针位置   get<i>: 获取第 i 个元素的值
   for (int i = 0; i < replaceText.size(); i++) {
     writeAnno << rt << get<1>(replaceText[i]) << '\n';
   }
@@ -299,6 +299,7 @@ int main(int argc, const char **argv) {
       // throw Exception() << ErrStr("only one contract file");
       return -1;
     }
+    std::cout << R"(op.getSourcePathList()[0]     )"  << op.getSourcePathList()[0]  << std::endl;
     prepareFile(op.getSourcePathList()[0]);
 
     tooling::ClangTool Tool(op.getCompilations(), op.getSourcePathList());
@@ -310,6 +311,7 @@ int main(int argc, const char **argv) {
                 randomString(20)
                     .c_str();  // "57298a3ci7d0g504ha00";// randomString(20);
 
+    std::cout << "randomDir    "  << randomDir  << std::endl;
     if (!fs::create_directories(randomDir)) {
       throw Exception() << ErrStr("create dir failed:")
                         << ErrStr(strerror(errno));
